@@ -11,19 +11,29 @@
 
     <div class="root">
 
-        <div class="mini-main">
-            <form action="{{ url_for('user_page.order_lists') }}">
-                <button class="body_btn">Список заявок</button>
-            </form>
+        <div class="header">
+            <a class="logo" href="/"><img src="static/images/LWU_pic.jpg"></a>
+            <a class="LS" href="/order_lists">Все заявки</a>
+            <a class="LS" href="/logout">Выход</a>
         </div>
 
-        <p class="main-text">Мои принятые заявки</p>
+        <div class="main">
+            <p class="main-text">Это ваша страница!</p>
+            <p class="not-main-text">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        </div>
+
+        <div class="main-for-text">
+            <p class="main-text" style="margin-top: 5rem; margin-left: auto; margin-right: auto;">Мои принятые заявки</p>
+        </div>
+
         {% for order in orders %}
             <div class="mini-main">
-                <p class="fort-text">ФИО:</p> <p class="fort-text">{{ order.customer.name }}</p>
-                <p class="fort-text">Класс:</p> <p class="fort-text">{{ order.customer.grade }}</p>
-                <p class="fort-text">Описание:</p> <p class="fort-text">{{ order.description }}</p>
-                <p class="fort-text">Ссылка на тг:</p> <p class="fort-text">{{ order.telegram_link }}</p>
+                <p class="fort-text">ФИО: {{ order.customer.name }}</p>
+                <p class="fort-text">Класс: {{ order.customer.grade }}</p>
+                <p class="fort-text">Описание: {{ order.description }}</p>
+                <p class="fort-text">Ссылка на тг: {{ order.telegram_link }}</p>
                 <button class="body_btn" onclick="end_ord({{ order.id }})">Удалить</button>
             </div>
         {% endfor %}

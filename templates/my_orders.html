@@ -22,9 +22,7 @@
             <div class="mini-main">
                 <p class="main-text">{{ order.subject }}</p>
                 <p class="not-main-text">{{ order.description }}</p>
-                <form action="{{ url_for('user_page.delete_order', order_id=order.id )}}">
-                    <button class="body_btn">Отменить заказ</button>
-                </form>
+                <button class="body_btn"><a href="/cancel_order?order_id={{ order.id }}" style="text-decoration: none; color: black;">Отменить заказ</a></button>
             </div>
         {% endfor %}
 

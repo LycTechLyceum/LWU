@@ -115,9 +115,9 @@ def home_page():
 def order_lists():
     if 'login' in session:
         user = User.query.filter_by(id=session['user_id']).first()
-        if user.role == "Executor":
+        if user.role == "Executor" or user.role == "Admin":
             orders = PostedOrder.query.all()
-            return render_template("see_order_lists.html", orders=orders)
+            return render_template("see_order_lists.html", orders=orders, role=user.role)
 
     return render_template("404_exception.html")
 

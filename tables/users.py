@@ -41,6 +41,7 @@ class User(db.Model):
         self.set_password(password)
         self.role = 'Executor'
         db.session.add(self)
+        db.session.commit()
         new_executor = Executor()
         new_executor.new_executor(name, surname, grade, self.id)
         db.session.add(new_executor)
@@ -54,7 +55,7 @@ class User(db.Model):
         db.session.commit()
 
     def executor_id(self):
-        return Executor.query.filter_by(user_id=self.id).first().id
+        return Executor.query.filter_by(user_id=self.id).first().id  # .id
 
     def customer_id(self):
-        return Customer.query.filter_by(user_id=self.id).first().id
+        return Customer.query.filter_by(user_id=self.id).first().id  # .id
