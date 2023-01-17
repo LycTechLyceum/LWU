@@ -15,13 +15,14 @@
 
         <div class="header">
                 <a class="logo" href="/"><img src="static/images/LWU_pic.jpg"></a>
+                <a class="LS" href="/home">Главная</a>
                 <a class="LS" href="/logout">Выход</a>
         </div>
 
         {% for order in orders %}
             <div class="mini-main">
                 <p class="main-text">{{ order.subject }}</p>
-                <p class="not-main-text">{{ order.description }}</p>
+                <p class="not-main-text" style="max-width: 25rem;">{{ order.description }}</p>
                 <button class="body_btn"><a href="/cancel_order?order_id={{ order.id }}" style="text-decoration: none; color: black;">Отменить заказ</a></button>
             </div>
         {% endfor %}
