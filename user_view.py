@@ -100,7 +100,6 @@ def log_out():
 def home_page():
     if 'login' in session:
         user = User.query.filter_by(id=session['user_id']).first()
-        print(user.role)
         if user.role == 'Customer':
             return render_template("customer_home_page.html")
         elif user.role == "Executor":
@@ -153,13 +152,16 @@ def finish_order():
     if 'login' in session:
         user = User.query.filter_by(id=session['user_id']).first()
         order_id = request.args.get("order_id")
+        print('hi')
         if user.role == "Customer":
+            print('hi1')
             order = ActiveOrder.query.filter_by(id=order_id).first()
             if order.customer.user_id == user.id:
+                print('hi2')
                 h_id = order.finish_order()
                 db.session.delete(order)
                 db.session.commit()
-                return redirect("/rating_add?oder_id="+str(h_id))
+                return redirect("/rating_add/?oder_id="+str(h_id))
         elif user.role == "Executor":
             order = ActiveOrder.query.filter_by(id=order_id).first()
             if order.executor.user_id == user.id:
@@ -236,8 +238,9 @@ def see_all_users():
     return render_template("404_exception.html")
 
 
-@bl.route("/rating_add")
+@bl.route("/rating_add", methods=["GET", "POST"])
 def improve_rating():
+    print(session)
     if 'login' in session:
         user = User.query.filter_by(id=session['user_id']).first()
         if user.role == "Customer":
@@ -249,6 +252,7 @@ def improve_rating():
                     if order.first().customer_id == session['user_id'] and order.first().executor_id == session['executor_id']:
                         value = request.form.get("rank")
                         add_exec_val(user_id, value)
+                        print('hi')
                         return redirect("/my_orders")
             else:
                 order_id = request.args.get("order_id")
@@ -257,6 +261,7 @@ def improve_rating():
                     if len(order) > 0:
                         session['order_id'] = order_id
                         session['executor_id'] = order.executor_id
+                        print('hi')
                         return render_template("ch_rank_user.html")
 
     return render_template("404_exception.html")
