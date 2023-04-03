@@ -227,7 +227,7 @@ def active_orders():
     return render_template("404_exception.html")
 
 
-@bl.route("/all_users")
+@bl.route("/all_users") # тут можно увидеть всех пользователей через аккакунт администратора
 def see_all_users():
     if 'login' in session:
         user = User.query.filter_by(id=session['user_id']).first()
@@ -238,7 +238,7 @@ def see_all_users():
     return render_template("404_exception.html")
 
 
-@bl.route("/rating_add", methods=["GET", "POST"])
+@bl.route("/rating_add", methods=["GET", "POST"]) # изменение рейтинга
 def improve_rating():
     print(session)
     if 'login' in session:
